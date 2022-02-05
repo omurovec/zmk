@@ -1,0 +1,16 @@
+if SHIELD_DACTYL_LEFT
+
+config ZMK_KEYBOARD_NAME
+    default "Dactyl 5x6"
+
+config ZMK_SPLIT_BLE_ROLE_CENTRAL
+    default y
+
+endif
+
+if SHIELD_MY_BOARD_LEFT || SHIELD_MY_BOARD_RIGHT
+
+config ZMK_SPLIT
+    default y
+
+endif
