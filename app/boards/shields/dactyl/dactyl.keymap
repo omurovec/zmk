@@ -9,16 +9,25 @@
 #define BOTH 3
 
 / {
+
+    conditional_layers {
+        compatible = "zmk,conditional-layers";
+        try_layer {
+            if-layers = <1 2>;
+            then-layer = <3>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
         default_layer {
 // --------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// |   ESC   |    Q    |    W    |    E    |    R    |    T    |                                          |    Y    |    U    |    I    |    O    |    P    |    \    |
+// |   ESC   |    Q    |    W    |    E    |    R    |    T    |                                          |    Y    |    U    |    I    |    O    |    P    |   BACK  |
 // |   TAB   |    A    |    S    |    D    |    F    |    G    |                                          |    H    |    J    |    K    |    L    |    ;    |    '    |
-// |  SHIFT  |    Z    |    X    |    C    |    V    |    B    |                                          |    N    |    M    |    ,    |    .    |    /    |  R CTRL |
-//           |   GUI   |   DEL   | RETURN  |  SPACE  | ESCAPE  |                                          |  RETURN |  SPACE  |   TAB   |   BSPC  |  R ALT  |
-//                                         |  SPACE  | ESCAPE  |                                          |  RETURN |  SPACE  |
+// |  SHIFT  |    Z    |    X    |    C    |    V    |    B    |                                          |    N    |    M    |    ,    |    .    |    /    |  RETURN |
+//           |   LEFT  |  RIGHT  |   ALT   |  LOWER  |   CMD   |                                          |  SPACE  |  UPPER  |   CTRL  |   DOWN  |    UP   |
+//                                         |   ESC   |   TAB   |                                          |  RETURN |  BACK   |
             bindings = <
     &kp ESC    &kp Q    &kp W      &kp E    &kp R     &kp T                                                 &kp Y     &kp U     &kp I     &kp O    &kp P     &kp BSPC
     &kp TAB    &kp A    &kp S      &kp D    &kp F     &kp G                                                 &kp H     &kp J     &kp K     &kp L    &kp SEMI  &kp SQT
@@ -31,16 +40,16 @@
 
         upper_layer {
 // --------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// |   ESC   |    Q    |    W    |    E    |    R    |    T    |                                          |    Y    |    U    |    I    |    O    |    P    |    \    |
-// |   TAB   |    A    |    S    |    D    |    F    |    G    |                                          |    H    |    J    |    K    |    L    |    ;    |    '    |
-// |  SHIFT  |    Z    |    X    |    C    |    V    |    B    |                                          |    N    |    M    |    ,    |    .    |    /    |  R CTRL |
-//           |   GUI   |   DEL   | RETURN  |  SPACE  | ESCAPE  |                                          |  RETURN |  SPACE  |   TAB   |   BSPC  |  R ALT  |
-//                                         |  SPACE  | ESCAPE  |                                          |  RETURN |  SPACE  |
+// |         |         |         |         |         |         |                                          |  RESET  |    7    |    8    |    9    |         |   BACK  |
+// |         |         |         |    (    |    )    |    {    |                                          |    }    |    4    |    5    |    6    |    ;    |    '    |
+// |         |         |         |    [    |    ]    |         |                                          |  BOOT   |    1    |    2    |    3    |    /    |  RETURN |
+//           |   LEFT  |  RIGHT  |   ALT   |  LOWER  |   CMD   |                                          |  SPACE  |  UPPER  |   CTRL  |    0    |    .    |
+//                                         |   ESC   |   TAB   |                                          |  RETURN |  BACK   |
             bindings = <
-    &none      &none    &none      &none    &none     &none                                                 &reset      &kp N7    &kp N8    &kp N9   &out OUT_BLE  &kp BSPC
+    &none      &none    &none      &none    &none     &none                                                 &kp C_RESET &kp N7    &kp N8    &kp N9   &out OUT_BLE  &kp BSPC
     &none      &none    &none      &kp LPAR &kp RPAR  &kp LBRC                                              &kp RBRC    &kp N4    &kp N5    &kp N6   &kp SEMI  &kp SQT
     &none      &none    &none      &kp LBKT &kp RBKT  &none                                                 &bootloader &kp N1    &kp N2    &kp N3   &kp FSLH  &kp RET
-               &kp LEFT &kp RIGHT  &kp LALT &mo BOTH  &kp LGUI                                              &kp SPACE   &mo UPPER &kp RCTRL &kp N0   &kp DOT
+               &kp LEFT &kp RIGHT  &kp LALT &mo LOWER &kp LGUI                                              &kp SPACE   &mo UPPER &kp RCTRL &kp N0   &kp DOT
                                             &kp ESC   &kp TAB                                               &kp RET   &kp BSPC
             >;
 
@@ -49,33 +58,33 @@
 
         lower_layer {
 // --------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// |   ESC   |    Q    |    W    |    E    |    R    |    T    |                                          |    Y    |    U    |    I    |    O    |    P    |    \    |
-// |   TAB   |    A    |    S    |    D    |    F    |    G    |                                          |    H    |    J    |    K    |    L    |    ;    |    '    |
-// |  SHIFT  |    Z    |    X    |    C    |    V    |    B    |                                          |    N    |    M    |    ,    |    .    |    /    |  R CTRL |
-//           |   GUI   |   DEL   | RETURN  |  SPACE  | ESCAPE  |                                          |  RETURN |  SPACE  |   TAB   |   BSPC  |  R ALT  |
-//                                         |  SPACE  | ESCAPE  |                                          |  RETURN |  SPACE  |
+// |    `    |    !    |    @    |    #    |    $    |    %    |                                          |    ^    |    &    |    *    |    (    |    )    |   DEL   |
+// |         |         |         |    (    |    )    |    {    |                                          |    }    |    4    |    UP   |  RIGHT  |    -    |    =    |
+// |         |         |         |    [    |    ]    |         |                                          |  BOOT   |    1    |    2    |    3    |    /    |  RETURN |
+//           |   LEFT  |  RIGHT  |   ALT   |  LOWER  |   CMD   |                                          |  SPACE  |  UPPER  |   CTRL  |    0    |    .    |
+//                                         |   ESC   |   TAB   |                                          |  RETURN |  BACK   |
             bindings = <
-    &kp GRAVE  &kp EXCL   &kp AT     &kp HASH &kp DLLR  &kp PRCNT                                           &kp CARET &kp AMPS  &kp STAR  &kp LPAR  &kp RPAR  &kp DEL
-    &kp TAB    &none      &none      &none    &none     &reset                                              &kp LEFT  &kp DOWN  &kp UP    &kp RIGHT &kp MINUS &kp EQUAL
-    &kp LSHIFT &none      &none      &none    &out OUT_BLE     &bootloader                                         &none     &none     &none     &none     &kp BSLH  &kp RET
-               &bt BT_CLR &bt BT_NXT &kp LALT &mo LOWER &kp LGUI                                            &kp SPACE &mo BOTH  &kp RCTRL &kp DOWN  &kp UP
-                                              &kp ESC   &kp TAB                                             &kp RET   &kp BSPC
+    &kp GRAVE  &kp EXCL   &kp AT     &kp HASH     &kp DLLR     &kp PRCNT                                     &kp CARET &kp AMPS   &kp STAR  &kp LPAR  &kp RPAR  &kp DEL
+    &kp TAB    &none      &none      &kp K_VOL_DN &kp K_VOL_UP &kp C_RESET                                   &kp LEFT  &kp DOWN   &kp UP    &kp RIGHT &kp MINUS &kp EQUAL
+    &kp LSHIFT &none      &none      &none        &none        &bootloader                                   &none     &none      &none     &none     &kp BSLH  &kp RET
+               &bt BT_CLR &bt BT_NXT &kp LALT     &mo LOWER    &kp LGUI                                      &kp SPACE &mo UPPER  &kp RCTRL &kp DOWN  &kp UP
+                                                  &kp ESC      &kp TAB                                       &kp RET   &kp BSPC
             >;
 
         };
 
         both_layer {
 // --------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// |   ESC   |    Q    |    W    |    E    |    R    |    T    |                                          |    Y    |    U    |    I    |    O    |    P    |    \    |
-// |   TAB   |    A    |    S    |    D    |    F    |    G    |                                          |    H    |    J    |    K    |    L    |    ;    |    '    |
-// |  SHIFT  |    Z    |    X    |    C    |    V    |    B    |                                          |    N    |    M    |    ,    |    .    |    /    |  R CTRL |
-//           |   GUI   |   DEL   | RETURN  |  SPACE  | ESCAPE  |                                          |  RETURN |  SPACE  |   TAB   |   BSPC  |  R ALT  |
-//                                         |  SPACE  | ESCAPE  |                                          |  RETURN |  SPACE  |
+// |         |         |         |         |         |         |                                          |    Y    |  BT_PRV |  BT_NXT |         |         |         |
+// |         |         |         |  BRI_DN |  BRI_UP |         |                                          |    H    |         |         |         |         |         |
+// |         |         |         |         |         |         |                                          |    N    |   BT0   |   BT1   |   BT2   |         |         |
+//           |   LEFT  |  RIGHT  |   ALT   |  LOWER  |   CMD   |                                          |  SPACE  |  UPPER  |   CTRL  |   DOWN  |   UP    |
+//                                         |   ESC   |   TAB   |                                          |  RETURN |  BACK   |
             bindings = <
-    &none       &none      &none    &none      &none     &none                                               &none     &bt BT_PRV   &bt BT_NXT   &none    &none  &none
-    &none       &none      &none    &none      &none     &none                                               &none     &kp K_VOL_DN &kp K_VOL_UP &none    &none  &none
-    &none       &none      &none    &none      &none     &none                                               &none     &none        &kp COMMA    &none    &none  &none
-                &kp LEFT &kp RIGHT  &kp LALT   &mo BOTH  &kp LGUI                                            &kp SPACE &mo BOTH     &kp RCTRL    &kp DOWN &kp UP
+    &none       &none      &none   &none       &none     &none                                               &none     &bt BT_PRV   &bt BT_NXT   &none        &none  &none
+    &none       &none      &none   &kp C_BRI_DN &kp C_BRI_UP &none                                           &none     &none        &none        &none        &none  &none
+    &none       &none      &none   &none       &none     &none                                               &none     &bt BT_SEL 0 &bl BT_SEL 1 &bt BT_SEL 2 &bt BT_CLR  &none
+                &kp LEFT &kp RIGHT &kp LALT    &mo LOWER &kp LGUI                                            &kp SPACE &mo UPPER    &kp RCTRL    &kp DOWN     &kp UP
                                                &kp ESC   &kp TAB                                             &kp RET   &kp BSPC
             >;
 
